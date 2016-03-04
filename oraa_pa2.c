@@ -45,7 +45,15 @@ int isValidString(char str[50], char alphabet[50]){
 }
 
 int getSkew(char str[50], int n){
+	int noOfg=0, noOfc=0, i=1, res=0;
 	
+	for(i=0; i<n && i<strlen(str); i++){
+		if(str[i]=='G') noOfg+=1;
+		else if(str[i]=='C') noOfc+=1;
+	}
+
+	res = noOfg-noOfc;
+	return res;
 }
 
 int getMaxSkewN(char str[50], int n){
@@ -59,11 +67,12 @@ int getMinSkewN(char str[50], int n){
 int main(){
 	int res;
 	char str1[50], str2[50];
+	int num;
 	printf("str1: ");	
 	scanf( "%s",str1);
 	printf("str2: ");	
-	scanf( "%s",str2);
-	res=countSubstrPattern(str1, str2);
+	scanf( "%d",&num);
+	res=getSkew(str1, num);
 	printf("%d", res);
 
 }
