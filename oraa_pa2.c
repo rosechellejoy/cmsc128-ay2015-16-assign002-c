@@ -22,7 +22,15 @@ int getHammingDistance(char str1[50], char str2[50]){
 }
 
 int countSubstrPattern(char original[50], char pattern[50] ){
+	int count=0, i, j, temp_i=0;
 
+	for(i=0; i<strlen(original); i++){
+		for(temp_i=i, j=0; j<strlen(pattern) && temp_i<=strlen(original); j++,temp_i++){
+			if(original[temp_i]!=pattern[j]) break; 
+		}
+		if(j==strlen(pattern)) count+=1;
+	}
+	return count;
 }
 
 int isValidString(char str[50], char alphabet[50]){
@@ -55,7 +63,7 @@ int main(){
 	scanf( "%s",str1);
 	printf("str2: ");	
 	scanf( "%s",str2);
-	res=isValidString(str1, str2);
+	res=countSubstrPattern(str1, str2);
 	printf("%d", res);
 
 }
