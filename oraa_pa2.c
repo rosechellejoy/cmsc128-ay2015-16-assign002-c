@@ -1,8 +1,3 @@
-/*
-	Rosechelle Joy C. Oraa
-	2013-11066
-	CMSC 128 AB-3L
-*/
 #include<stdio.h>
 #include<stdlib.h> 
 #include<string.h>
@@ -38,7 +33,7 @@ int countSubstrPattern(char original[50], char pattern[50] ){
 	for(i=0; i<strlen(original); i++){				//for each character in original		
 		for(temp_i=i, j=0; j<strlen(pattern) && temp_i<=strlen(original); j++,temp_i++){			//store current value of i to temp_i		
 			if(original[temp_i]!=pattern[j]) break; 												//if current character matches with 1st character in pattern
-		}																							//compare it to the succeding characters of pattern
+		}																							//compare it to the succeeding characters of pattern
 																									//break if the characters are different
 		if(j==strlen(pattern)) count+=1;						//if all characters in pattern has been compared, then count of pattern in incremented								
 	}
@@ -63,7 +58,7 @@ int isValidString(char str[50], char alphabet[50]){
 /*
 	getSkew(char str[50], int n)
 		-returns no of 'G' - no of 'C' from index 1 to n of str
-		note:1st element is of index 1 
+		note:1st character is of index 1 
 */
 int getSkew(char str[50], int n){
 	int noOfg=0, noOfc=0, i=1, res=0;
@@ -76,42 +71,39 @@ int getSkew(char str[50], int n){
 	res = noOfg-noOfc;	
 	return res;		
 }
-
+/*
+	getMaxSkewN(char str[50], int n)
+		-returns max skew among the skews from 1 to n 
+*/
 int getMaxSkewN(char str[50], int n){
-	int i, max, *skew;
-	skew = (int *) malloc (n*sizeof(int));
+	int i, max, *skew;			
+	skew = (int *) malloc (n*sizeof(int));	//malloc pointer to array of skews
 
-	for(i=0; i<n; i++) skew[i]=getSkew(str, i+1);
+	for(i=0; i<n; i++) skew[i]=getSkew(str, i+1);	//getSkew(1) to getSkew(n)
 
 	for(i=1, max=skew[0]; i<n; i++) 
-		if(max<skew[i]) max = skew[i];
+		if(max<skew[i]) max = skew[i];			//find max skew from array of skews
 	
-	free(skew);
+	free(skew);	//free allocated pointer
 	return max;
 }
-
+/*
+	getMinSkewN(char str[50], int n)
+		-returns min skew among the skews from 1 to n 
+*/
 int getMinSkewN(char str[50], int n){
 	int i, min, *skew;
-	skew = (int *) malloc (n*sizeof(int));
+	skew = (int *) malloc (n*sizeof(int));	//malloc pointer to array of skews
 
-	for(i=0; i<n; i++) skew[i]=getSkew(str, i+1);
+	for(i=0; i<n; i++) skew[i]=getSkew(str, i+1);		//getSkew(1) to getSkew(n)
 
 	for(i=1, min=skew[0]; i<n; i++) 
-		if(min>skew[i]) min = skew[i];
+		if(min>skew[i]) min = skew[i];			//find min skew from array of skews
 	
-	free(skew);
-	return min;
+	free(skew);	//free allocated pointer
+	return min;	
 }
 
 int main(){
-	int res;
-	char str1[50], str2[50];
-	int num;
-	printf("str1: ");	
-	scanf( "%s",str1);
-	printf("str2: ");	
-	scanf( "%d",&num);
-	res=getMinSkewN(str1, num);
-	printf("%d", res);
 
 }
