@@ -91,7 +91,16 @@ int getMaxSkewN(char str[50], int n){
 }
 
 int getMinSkewN(char str[50], int n){
+	int i, min, *skew;
+	skew = (int *) malloc (n*sizeof(int));
+
+	for(i=0; i<n; i++) skew[i]=getSkew(str, i+1);
+
+	for(i=1, min=skew[0]; i<n; i++) 
+		if(min>skew[i]) min = skew[i];
 	
+	free(skew);
+	return min;
 }
 
 int main(){
@@ -102,7 +111,7 @@ int main(){
 	scanf( "%s",str1);
 	printf("str2: ");	
 	scanf( "%d",&num);
-	res=getMaxSkewN(str1, num);
+	res=getMinSkewN(str1, num);
 	printf("%d", res);
 
 }
