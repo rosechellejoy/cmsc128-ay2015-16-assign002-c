@@ -4,6 +4,7 @@
 	CMSC 128 AB-3L
 */
 #include<stdio.h>
+#include<stdlib.h> 
 #include<string.h>
 /*
 	getHammingDistance(char str1[50], char str2[50]) 
@@ -66,7 +67,7 @@ int isValidString(char str[50], char alphabet[50]){
 */
 int getSkew(char str[50], int n){
 	int noOfg=0, noOfc=0, i=1, res=0;
-	
+
 	for(i=0; i<n && i<strlen(str); i++){
 		if(str[i]=='G') noOfg+=1;			//counts occurences of 'G'
 		else if(str[i]=='C') noOfc+=1;		//counts occurences of 'C'
@@ -77,7 +78,16 @@ int getSkew(char str[50], int n){
 }
 
 int getMaxSkewN(char str[50], int n){
+	int i, max, *skew;
+	skew = (int *) malloc (n*sizeof(int));
+
+	for(i=0; i<n; i++) skew[i]=getSkew(str, i+1);
+
+	for(i=1, max=skew[0]; i<n; i++) 
+		if(max<skew[i]) max = skew[i];
 	
+	free(skew);
+	return max;
 }
 
 int getMinSkewN(char str[50], int n){
@@ -92,7 +102,7 @@ int main(){
 	scanf( "%s",str1);
 	printf("str2: ");	
 	scanf( "%d",&num);
-	res=getSkew(str1, num);
+	res=getMaxSkewN(str1, num);
 	printf("%d", res);
 
 }
